@@ -85,7 +85,7 @@ function affichageProduits()
     </td>
     <td><?php echo $product['description']; ?>
     </td>
-    <td><?php echo $product['price']; ?>
+    <td><?php echo $product['price']; ?> €
     </td>
     <td><?php echo $product['city']; ?>
     </td>
@@ -94,7 +94,7 @@ function affichageProduits()
     <td><?php echo $product['username']; ?>
     </td>
     <td> <a
-            href="product.php/?id=<?php echo $product['products_id']; ?>">Afficher
+            href="product.php?id=<?php echo $product['products_id']; ?>">Afficher
             article</a>
     </td>
 </tr>
@@ -116,7 +116,7 @@ function affichageProduit($id)
         </p>
         <p><?php echo $product['city']; ?>
         </p>
-        <button class="btn btn-danger"><?php echo $product['price']; ?> </button>
+        <button class="btn btn-danger"><?php echo $product['price']; ?> € </button>
     </div>
 </div>
 <?php
@@ -141,7 +141,7 @@ function ajoutProduits($name, $description, $price, $city, $category, $user_id)
             // Affichage conditionnel du message de réussite
             if ($sth->execute()) {
                 echo "<div class='alert alert-success'> Votre article a été ajouté à la base de données </div>";
-                header('Location: products.php');
+                header('Location: product.php?id='.$conn->lastInsertId());
             }
         } catch (PDOException $e) {
             echo 'Error: '.$e->getMessage();
