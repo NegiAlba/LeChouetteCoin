@@ -1,7 +1,6 @@
 1. Créer une page d'accueil avec un lien vers la page de connexion.
 2. Créer une connexion à la base de données (avec PDO) dans un config.php dans le dossier includes, qui contient tous fichiers qui seront inclus sur des pages.
 3. Créer une base données qui représente la structure de notre projet [le_chouette_coin>users,products,categories].
-==============================================================================================================================
 4. Créer un formulaire pour l'inscription/la connexion des utilisateurs qui reprend les informations de connexion.
     -> Ne pas oublier l'action et la méthode POST du formulaire.
     -> Ne pas oublier les name sur les input (pour les retrouver lors du $_POST)
@@ -37,3 +36,16 @@
     -> Vérification de la variable $price qui doit être un entier strictement positif et inférieur à 1 million.
     -> Créer une requête SQL en PDO pour l'ajout de données dans la base de données, avec des marqueurs nommés et des bindValue.
     -> Après validation du formulaire, création d'une redirection vers le produit fraîchement créé à l'aide du lastInsertId() sur le lien de redirection.
+14. Création d'un formulaire d'édition de produits.
+    -> Création du formulaire à partir des données récupérées dans la base de données (requete SELECT pour récupérer les données du produit à éditer, puis insertion dans le formulaire avec les values).
+    -> Création de la logique d'édition dans le fichier process.
+    -> Factorisation de l'édition grâce à une fonction modifProduit.
+==============================================================================================================================
+15. Création d'un bouton de suppression.
+    -> Création d'un mini formulaire dans le tableau (pour passer le blocage de méthode POST du fichier process.php)
+    -> Création de la requête dans le fichier process, qui inclut une vérification de l'user_id
+    -? Factoriser la suppression --
+16. Création d'un formulaire d'édition du numéro de téléphone.
+    -> Création du formulaire à partir des données récupérées dans la base de données (requete SELECT pour récupérer le numéro de téléphone à éditer, puis insertion dans le formulaire avec la value).
+    -> Création de la logique d'édition dans le fichier process.
+    -? Factorisation de l'édition --

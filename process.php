@@ -50,5 +50,31 @@
         } catch (PDOException $e) {
             echo 'Error: '.$e->getMessage();
         }
+    } elseif (isset($_POST['user_edit'])) {
+        try {
+            $sth = $conn->prepare('UPDATE users SET phone=:phone WHERE id=:user_id');
+            $sth->bindValue(':phone', $_POST['user_phone']);
+            $sth->bindValue(':user_id', $_POST['user_id']);
+            if ($sth->execute()) {
+                echo "<div class='alert alert-success'> Vous avez mis à jour le numéro de téléphone avec ".$_POST['user_phone']."</div>'";
+            }
+        } catch (PDOException $e) {
+            echo 'Error: '.$e->getMessage();
+        }
+    } elseif (isset($_POST['user_edit2'])) {
+        $user_id = $_POST['user_id'];
+        $phone = $_POST['user_phone'];
+        // echo "Tu essaie de modifier le téléphone de l'utilisateur ".$_POST['user_id'].' avec le numéro '.$_POST['user_phone'].' ! ';
+        try {
+            $sth = $conn->prepare('UPDATE users SET phone=:phone WHERE id=:user_id');
+            $sth->bindValue(':phone', $phone);
+            $sth->bindValue(':user_id', $user_id);
+
+            if ($sth->execute()) {
+                echo "<div class='alert alert-success'> Vous avez bien mis à jour votre numéro de téléphone ! </div>";
+            }
+        } catch (PDOException $e) {
+            echo $e;
+        }
     }
     require 'includes/footer.php';
