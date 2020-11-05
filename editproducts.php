@@ -54,7 +54,9 @@ $categories = $res2->fetchAll();
                     <?php } ?>
                 </select>
             </div>
-            <button type="submit" class="btn btn-success" name="product_edit">Enregistrer l'article</button>
+            <input type="hidden" name="product_id"
+                value="<?php echo $product['products_id']; ?>" />
+            <button type="submit" class="btn btn-success" name="product_edit">Modifier l'article</button>
         </form>
     </div>
 </div>

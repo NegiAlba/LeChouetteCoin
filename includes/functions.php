@@ -130,7 +130,12 @@ function affichageProduitsByUser($user_id)
     <td> <a href="editproducts.php?id=<?php echo $product['products_id']; ?>"
             class="btn btn-outline-warning">Editer</a>
     </td>
-    <td> <a href="#" class="btn btn-outline-danger">Supprimer</a>
+    <td>
+        <form action="process.php" method="post">
+            <input type="hidden" name="product_id"
+                value="<?php echo $product['products_id']; ?>">
+            <input type="submit" name="product_delete" class="btn btn-outline-danger" value="Supprimer" />
+        </form>
     </td>
 </tr>
 <?php
@@ -178,6 +183,29 @@ function ajoutProduits($name, $description, $price, $city, $category, $user_id)
             if ($sth->execute()) {
                 echo "<div class='alert alert-success'> Votre article a été ajouté à la base de données </div>";
                 header('Location: product.php?id='.$conn->lastInsertId());
+            }
+        } catch (PDOException $e) {
+            echo 'Error: '.$e->getMessage();
+        }
+    }
+}
+
+function modifProduits($name, $description, $price, $city, $category, $id, $user_id)
+{
+    global $conn;
+    if (is_int($price) && $price > 0 && $price < 1000000) {
+        try {
+            $sth = $conn->prepare('UPDATE products SET products_name=:products_name, description=:description, price=:price,city=:city, category_id=:category_id WHERE products_id=:products_id AND user_id=:user_id');
+            $sth->bindValue(':products_name', $name);
+            $sth->bindValue(':description', $description);
+            $sth->bindValue(':price', $price);
+            $sth->bindValue(':city', $city);
+            $sth->bindValue(':category_id', $category);
+            $sth->bindValue(':products_id', $id);
+            $sth->bindValue(':user_id', $user_id);
+            if ($sth->execute()) {
+                echo "<div class='alert alert-success'> Votre modification a bien été prise en compte </div>";
+                header("Location: product.php?id={$id}");
             }
         } catch (PDOException $e) {
             echo 'Error: '.$e->getMessage();
