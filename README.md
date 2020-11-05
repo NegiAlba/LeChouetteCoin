@@ -8,7 +8,8 @@
 4. Créer nos tables.
 5. Faire un système d'authentification [done]
 ----------------------------------------------------------------
-6. Créer une page d'affichage des produits.
-7. Créer une page de profil contenant l'affichage dynamique des produits
-8. Créer un formulaire de modification du numéro de téléphone de l'utilisateur
-9. Ajouter la fonctionnalité de suppression des produits
+6. Créer une page d'affichage des produits. [done]
+7. Créer une page d'ajout de produits. [done]
+8. Créer une page de profil contenant l'affichage dynamique des produits
+9. Créer un formulaire de modification du numéro de téléphone de l'utilisateur
+10. Ajouter la fonctionnalité de suppression des produits

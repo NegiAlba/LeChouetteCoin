@@ -20,7 +20,6 @@
             $user_id = $_SESSION['id'];
             // Lancement de la fonction d'ajout de produits
             ajoutProduits($name, $description, $price, $city, $category, $user_id);
-
         }
     }
     require 'includes/footer.php';

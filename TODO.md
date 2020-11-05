@@ -24,7 +24,16 @@
     -> Vérification du mot de passe hashed (2e if avec password_verify())
     -> Lancement d'une session (avec $_SESSION).
 10. **AJOUTER LA VARIABLE $conn EN GLOBAL A CHAQUE FONCTION PLUTOT QUE COMME ARGUMENT**
-11. Création d'une fonction d'affichage des données depuis la BDD.
-    -> Faire une requête SELECT à la base de données avec les paramètres de notre choix (en l'occurence aucun pour l'instant)
-    -> Faire un array qui contient le fetchAll sur les données récupérées.
-    -> Créer une boucle foreach qui passe chaque ligne des données récupérées depuis la base de données dans un tableau HTML.
+11. Création d'une (2) fonction(s) d'affichage des données depuis la BDD.
+    -> Faire une requête SELECT à la base de données avec les paramètres de notre choix (une requête globale et une requête par id de produit)
+    -> Faire un array qui contient le fetchAll sur les données récupérées (ou un fetch s'il n'y a qu'une seule ligne récupérée)
+    -> Créer une boucle foreach qui passe chaque ligne des données récupérées depuis la base de données dans un tableau HTML. (Ou tout simplement dans des balises HTML)
+12. Création d'une page process.php qui contiendra la logique de tous les formulaires.
+    -> Bloquer l'accès de cette page aux méthodes autres que POST.
+    -> Ajout d'une condition pour le formulaire d'ajout de produits
+13. Création d'une fonction d'ajout de produits dans la BDD.
+    -> Création d'un formulaire contenant toutes les informations nécessaire à l'ajout de produits dans la base de données.(le champ category_id est récupéré dynamiquement depuis la base de données, par un fetchAll de la table categories.
+    -> Les champs id et user_id se remplissent différemment. L'id est en auto_increment mais le user_id est récupéré depuis le token de $_SESSION.
+    -> Vérification de la variable $price qui doit être un entier strictement positif et inférieur à 1 million.
+    -> Créer une requête SQL en PDO pour l'ajout de données dans la base de données, avec des marqueurs nommés et des bindValue.
+    -> Après validation du formulaire, création d'une redirection vers le produit fraîchement créé à l'aide du lastInsertId() sur le lien de redirection.
