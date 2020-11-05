@@ -101,6 +101,42 @@ function affichageProduits()
 <?php
     }
 }
+
+function affichageProduitsByUser($user_id)
+{
+    global $conn;
+    $sth = $conn->prepare("SELECT p.*,c.categories_name FROM products AS p LEFT JOIN categories AS c ON p.category_id = c.categories_id WHERE p.user_id = {$user_id}");
+    $sth->execute();
+
+    $products = $sth->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($products as $product) {
+        ?>
+<tr>
+    <th scope="row"><?php echo $product['products_id']; ?>
+    </th>
+    <td><?php echo $product['products_name']; ?>
+    </td>
+    <td><?php echo $product['description']; ?>
+    </td>
+    <td><?php echo $product['price']; ?> €
+    </td>
+    <td><?php echo $product['city']; ?>
+    </td>
+    <td><?php echo $product['categories_name']; ?>
+    </td>
+    <td> <a href="product.php?id=<?php echo $product['products_id']; ?>"
+            class="btn btn-outline-primary">Afficher</a>
+    </td>
+    <td> <a href="editproducts.php?id=<?php echo $product['products_id']; ?>"
+            class="btn btn-outline-warning">Editer</a>
+    </td>
+    <td> <a href="#" class="btn btn-outline-danger">Supprimer</a>
+    </td>
+</tr>
+<?php
+    }
+}
+
 function affichageProduit($id)
 {
     global $conn;
