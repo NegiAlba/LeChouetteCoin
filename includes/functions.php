@@ -78,26 +78,26 @@ function affichageProduits()
     $products = $sth->fetchAll(PDO::FETCH_ASSOC);
     foreach ($products as $product) {
         ?>
-<tr>
-    <th scope="row"><?php echo $product['products_id']; ?>
-    </th>
-    <td><?php echo $product['products_name']; ?>
-    </td>
-    <td><?php echo $product['description']; ?>
-    </td>
-    <td><?php echo $product['price']; ?> €
-    </td>
-    <td><?php echo $product['city']; ?>
-    </td>
-    <td><?php echo $product['categories_name']; ?>
-    </td>
-    <td><?php echo $product['username']; ?>
-    </td>
-    <td> <a
-            href="product.php?id=<?php echo $product['products_id']; ?>">Afficher
-            article</a>
-    </td>
-</tr>
+<div class="card mx-2" style="width: 18rem;">
+    <div class="card-body">
+        <h5 class="card-title"><?php echo $product['products_name']; ?>
+        </h5>
+        <h6 class="card-subtitle mb-2 text-muted"><?php echo $product['city']; ?>
+        </h6>
+        <p class="card-text"><?php echo $product['description']; ?>
+        </p>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item"><?php echo $product['price']; ?>
+                €</li>
+            <li class="list-group-item"><?php echo $product['city']; ?>
+            </li>
+            <li class="list-group-item"><?php echo $product['categories_name']; ?>
+            </li>
+        </ul>
+        <a href="product.php?id=<?php echo $product['products_id']; ?>"
+            class="card-link btn btn-primary">Afficher article</a>
+    </div>
+</div>
 <?php
     }
 }
