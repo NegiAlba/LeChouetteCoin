@@ -14,3 +14,4 @@
 9. Créer un formulaire de modification du numéro de téléphone de l'utilisateur [done]
 10. Ajouter la fonctionnalité de suppression des produits [done] -> factoriser la suppression
 11. Corriger l'interface pour être prod friendly
+12. Ajouter un champ de recherche pour les articles

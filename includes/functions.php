@@ -125,16 +125,16 @@ function affichageProduitsByUser($user_id)
     <td><?php echo $product['categories_name']; ?>
     </td>
     <td> <a href="product.php?id=<?php echo $product['products_id']; ?>"
-            class="btn btn-outline-primary">Afficher</a>
+            class=""><i class="fas fa-eye"></i></a>
     </td>
     <td> <a href="editproducts.php?id=<?php echo $product['products_id']; ?>"
-            class="btn btn-outline-warning">Editer</a>
+            class=""><i class="fas fa-pen"></i></a>
     </td>
     <td>
         <form action="process.php" method="post">
             <input type="hidden" name="product_id"
                 value="<?php echo $product['products_id']; ?>">
-            <input type="submit" name="product_delete" class="btn btn-outline-danger" value="Supprimer" />
+            <button type="submit" name="product_delete" class="" value=""><i class="fas fa-trash-alt"></i></button>
         </form>
     </td>
 </tr>
@@ -210,5 +210,40 @@ function modifProduits($name, $description, $price, $city, $category, $id, $user
         } catch (PDOException $e) {
             echo 'Error: '.$e->getMessage();
         }
+    }
+}
+
+function modifPhone($user_id, $numDePhone)
+{
+    global $conn;
+
+    try {
+        $sth = $conn->prepare('UPDATE users SET phone=:phone WHERE id=:user_id');
+        $sth->bindValue(':phone', $numDePhone);
+        $sth->bindValue(':user_id', $user_id);
+        if ($sth->execute()) {
+            header('Location:profile.php?p');
+        }
+    } catch (PDOException $e) {
+        echo 'Error: '.$e->getMessage();
+    }
+}
+
+// Fonction de suppression des produits. Les arguments renseignés sont des placeholders étant donné qu'ils seront remplacés par les véritables variables une fois la fonction appelée;
+function suppProduits($user_id, $produit_id)
+{
+    // Récupération de la connexion à la BDD à partir de l'espace global.
+    global $conn;
+
+    // Tentative de la requête de suppression.
+    try {
+        $sth = $conn->prepare('DELETE FROM products WHERE products_id = :products_id AND user_id =:user_id');
+        $sth->bindValue(':products_id', $produit_id);
+        $sth->bindValue(':user_id', $user_id);
+        if ($sth->execute()) {
+            header('Location:profile.php?s');
+        }
+    } catch (PDOException $e) {
+        echo 'Error: '.$e->getMessage();
     }
 }

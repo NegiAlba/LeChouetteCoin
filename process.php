@@ -38,43 +38,14 @@
             modifProduits($name, $description, $price, $city, $category, $id, $user_id);
         }
     } elseif (isset($_POST['product_delete'])) {
-        // echo "<div class='alert alert-danger'> Vous tentez de supprimer l'article n°".$_POST['product_id'].'</div>';
+        $product = $_POST['product_id'];
+        $user_id = $_SESSION['id'];
 
-        try {
-            $sth = $conn->prepare('DELETE FROM products WHERE products_id = :products_id AND user_id =:user_id');
-            $sth->bindValue(':products_id', $_POST['product_id']);
-            $sth->bindValue(':user_id', $_SESSION['id']);
-            $sth->execute();
-
-            echo "<div class='alert alert-danger'> Vous avez supprimé l'article n°".$_POST['product_id'].'</div>';
-        } catch (PDOException $e) {
-            echo 'Error: '.$e->getMessage();
-        }
+        suppProduits($user_id, $product);
     } elseif (isset($_POST['user_edit'])) {
-        try {
-            $sth = $conn->prepare('UPDATE users SET phone=:phone WHERE id=:user_id');
-            $sth->bindValue(':phone', $_POST['user_phone']);
-            $sth->bindValue(':user_id', $_POST['user_id']);
-            if ($sth->execute()) {
-                echo "<div class='alert alert-success'> Vous avez mis à jour le numéro de téléphone avec ".$_POST['user_phone']."</div>'";
-            }
-        } catch (PDOException $e) {
-            echo 'Error: '.$e->getMessage();
-        }
-    } elseif (isset($_POST['user_edit2'])) {
         $user_id = $_POST['user_id'];
         $phone = $_POST['user_phone'];
-        // echo "Tu essaie de modifier le téléphone de l'utilisateur ".$_POST['user_id'].' avec le numéro '.$_POST['user_phone'].' ! ';
-        try {
-            $sth = $conn->prepare('UPDATE users SET phone=:phone WHERE id=:user_id');
-            $sth->bindValue(':phone', $phone);
-            $sth->bindValue(':user_id', $user_id);
 
-            if ($sth->execute()) {
-                echo "<div class='alert alert-success'> Vous avez bien mis à jour votre numéro de téléphone ! </div>";
-            }
-        } catch (PDOException $e) {
-            echo $e;
-        }
+        modifPhone($user_id, $phone);
     }
     require 'includes/footer.php';
