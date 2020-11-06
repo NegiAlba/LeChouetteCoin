@@ -11,7 +11,7 @@ if (isset($_POST['search_form'])) {
     $category = intval(strip_tags($_POST['product_category']));
     $search_text = strip_tags($_POST['search_text']);
 
-    $sql2 = "SELECT * FROM products WHERE category_id = {$category} AND products_name LIKE '%{$search_text}%'";
+    $sql2 = "SELECT * FROM products WHERE category_id LIKE '%{$category}%' AND products_name LIKE '%{$search_text}%'";
     $res2 = $conn->query($sql2);
     $search = $res2->fetchAll();
 }
@@ -20,12 +20,13 @@ if (isset($_POST['search_form'])) {
 <form action="products.php" method="post">
     <div class="form-inline">
         <div class="form-group">
-            <label for="InputCategory">Rechercher par nom</label>
-            <input type="text" name="search_text" id="InputText" class="form-control mb-2 mx-2">
+            <!-- <label for="InputCategory">Rechercher par nom</label> -->
+            <input type="text" name="search_text" id="InputText" placeholder="Rechercher par nom"
+                class="form-control mb-2 mx-2">
         </div>
         <div class="form-group">
-            <label for="InputCategory">Filtrer par catégorie</label>
             <select class="form-control mb-2 mx-2" id="InputCategory" name="product_category">
+                <option value="" selected> -- Filtrer par catégorie -- </option>
                 <?php foreach ($categories as $category) { ?>
                 <option
                     value="<?php echo $category['categories_id']; ?>">
@@ -34,7 +35,10 @@ if (isset($_POST['search_form'])) {
                 <?php } ?>
             </select>
         </div>
-        <input type="submit" value="Recherche" name="search_form" class="btn btn-info">
+        <input type="submit" value="Recherche" name="search_form" class=" mb-2 btn btn-info">
+        <?php if (isset($search)) {
+    echo '<a href="products.php" class="btn btn-danger mx-2 mb-2">Reset</a>';
+} ?>
     </div>
 </form>
 
