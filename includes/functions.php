@@ -1,6 +1,19 @@
 <?php
 require 'includes/config.php';
 
+function shorten_text($text, $max = 60, $append = '&hellip;')
+{
+    if (strlen($text) <= $max) {
+        return $text;
+    }
+    $return = substr($text, 0, $max);
+    if (false === strpos($text, ' ')) {
+        return $return.$append;
+    }
+
+    return preg_replace('/\w+$/', '', $return).$append;
+}
+
 function inscription($email, $username, $password1, $password2)
 {
     global $conn;
@@ -116,7 +129,7 @@ function affichageProduitsByUser($user_id)
     </th>
     <td><?php echo $product['products_name']; ?>
     </td>
-    <td><?php echo $product['description']; ?>
+    <td><?php echo shorten_text($product['description']); ?>
     </td>
     <td><?php echo $product['price']; ?> €
     </td>
