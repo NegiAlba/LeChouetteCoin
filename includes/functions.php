@@ -125,16 +125,16 @@ function affichageProduitsByUser($user_id)
     <td><?php echo $product['categories_name']; ?>
     </td>
     <td> <a href="product.php?id=<?php echo $product['products_id']; ?>"
-            class=""><i class="fas fa-eye"></i></a>
+            class="fa btn btn-outline-primary"><i class="fas fa-eye"></i></a>
     </td>
     <td> <a href="editproducts.php?id=<?php echo $product['products_id']; ?>"
-            class=""><i class="fas fa-pen"></i></a>
+            class="fa btn btn-outline-warning"><i class="fas fa-pen"></i></a>
     </td>
     <td>
         <form action="process.php" method="post">
             <input type="hidden" name="product_id"
                 value="<?php echo $product['products_id']; ?>">
-            <button type="submit" name="product_delete" class="" value=""><i class="fas fa-trash-alt"></i></button>
+            <input type="submit" name="product_delete" class="fa btn btn-outline-danger" value="&#xf2ed;"></input>
         </form>
     </td>
 </tr>
